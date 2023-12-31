@@ -15,48 +15,56 @@ cardio_category = Category.find_or_create_by!(name: 'Cardio')
 StandardExercise.find_or_create_by!(
   name: 'Bench Press',
   description: 'Description for bench press...',
-  category: chest_category
+  category: chest_category,
+  is_custom: false
 )
 
 StandardExercise.find_or_create_by!(
   name: 'Squats',
   description: 'Description for squats...',
-  category: legs_category
+  category: legs_category,
+  is_custom: false
 )
 
 StandardExercise.find_or_create_by!(
   name: 'Deadlifts',
   description: 'Description for deadlifts...',
-  category: legs_category
+  category: legs_category,
+  is_custom: false
 )
 
 StandardExercise.find_or_create_by!(
   name: 'Swimming',
   description: 'Description for swimming...',
-  category: cardio_category
+  category: cardio_category,
+  is_custom: false
 )
 
 StandardExercise.find_or_create_by!(
   name: 'Jogging',
   description: 'Description for jogging...',
-  category: cardio_category
+  category: cardio_category,
+  is_custom: false
 )
 
 # Add more standard exercises
 StandardExercise.find_or_create_by!(
   name: 'Cycling',
   description: 'Description for cycling...',
-  category: cardio_category
+  category: cardio_category,
+  is_custom: false
 )
 
 StandardExercise.find_or_create_by!(
   name: 'Jump Rope',
   description: 'Description for jump rope...',
-  category: cardio_category
+  category: cardio_category,
+  is_custom: false
 )
 
 StandardExercise.find_or_create_by!(
   name: 'High Knees',
   description: 'Description for high knees...',
-  category: cardio_category
+  category: cardio_category,
+  is_custom: false
 )

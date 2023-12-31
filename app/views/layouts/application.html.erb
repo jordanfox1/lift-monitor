@@ -13,6 +13,7 @@
   <body>
     <% if user_signed_in? %>
       <p>you are logged in</p>
+      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
     <% else %>
       <p>you are logged out</p>
     <% end %>

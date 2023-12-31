@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_31_075852) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_31_090141) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_075852) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -32,16 +38,40 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_075852) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
+  create_table "exercise_instances", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "exercise_log_id", null: false
+    t.bigint "exercise_id", null: false
+    t.integer "weight"
+    t.integer "reps"
+    t.integer "time"
+    t.integer "distance"
+    t.integer "sets"
+    t.boolean "is_pr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_exercise_instances_on_exercise_id"
+    t.index ["exercise_log_id"], name: "index_exercise_instances_on_exercise_log_id"
+    t.index ["user_id"], name: "index_exercise_instances_on_user_id"
+  end
+
+  create_table "exercise_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_exercise_logs_on_user_id"
+  end
+
   create_table "exercises", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "weight"
-    t.integer "reps"
-    t.integer "sets"
     t.text "notes"
     t.boolean "is_custom"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "target_muscle"
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_exercises_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,4 +92,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_075852) do
   end
 
   add_foreign_key "comments", "articles"
+  add_foreign_key "exercise_instances", "exercise_logs"
+  add_foreign_key "exercise_instances", "exercises"
+  add_foreign_key "exercise_instances", "users"
+  add_foreign_key "exercise_logs", "users"
+  add_foreign_key "exercises", "categories"
 end

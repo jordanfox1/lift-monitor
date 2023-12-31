@@ -1,0 +1,62 @@
+<%= form_with(model: exercise_instance) do |form| %>
+  <% if exercise_instance.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(exercise_instance.errors.count, "error") %> prohibited this exercise_instance from being saved:</h2>
+
+      <ul>
+        <% exercise_instance.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.label :exercise_log_id, style: "display: block" %>
+    <%= form.text_field :exercise_log_id %>
+  </div>
+
+  <div>
+    <%= form.label :exercise_id, style: "display: block" %>
+    <%= form.text_field :exercise_id %>
+  </div>
+
+  <div>
+    <%= form.label :weight, style: "display: block" %>
+    <%= form.number_field :weight %>
+  </div>
+
+  <div>
+    <%= form.label :reps, style: "display: block" %>
+    <%= form.number_field :reps %>
+  </div>
+
+  <div>
+    <%= form.label :time, style: "display: block" %>
+    <%= form.number_field :time %>
+  </div>
+
+  <div>
+    <%= form.label :distance, style: "display: block" %>
+    <%= form.number_field :distance %>
+  </div>
+
+  <div>
+    <%= form.label :sets, style: "display: block" %>
+    <%= form.number_field :sets %>
+  </div>
+
+  <div>
+    <%= form.label :is_pr, style: "display: block" %>
+    <%= form.check_box :is_pr %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

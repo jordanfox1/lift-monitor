@@ -12,6 +12,11 @@
   <% end %>
 
   <div>
+    <%= form.label :category_id, style: "display: block" %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "Select a category" %>
+  </div>
+
+  <div>
     <%= form.label :name, style: "display: block" %>
     <%= form.text_field :name %>
   </div>
@@ -22,28 +27,8 @@
   </div>
 
   <div>
-    <%= form.label :weight, style: "display: block" %>
-    <%= form.number_field :weight %>
-  </div>
-
-  <div>
-    <%= form.label :reps, style: "display: block" %>
-    <%= form.number_field :reps %>
-  </div>
-
-  <div>
-    <%= form.label :sets, style: "display: block" %>
-    <%= form.number_field :sets %>
-  </div>
-
-  <div>
     <%= form.label :notes, style: "display: block" %>
     <%= form.text_area :notes %>
-  </div>
-
-  <div>
-    <%= form.label :is_custom, style: "display: block" %>
-    <%= form.check_box :is_custom %>
   </div>
 
   <div>

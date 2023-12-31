@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :exercise_instances
   resources :exercises
   devise_for :users
 

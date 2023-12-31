@@ -1,0 +1,30 @@
+<div id="<%= dom_id exercise %>">
+    <p>
+      <strong>Name:</strong>
+      <%= exercise.name %>
+    </p>
+  
+    <p>
+      <strong>Description:</strong>
+      <%= exercise.description %>
+    </p>
+  
+    <% if @exercise %>
+      <p>
+        <strong>Category:</strong>
+          <%= @exercise.category.name %>
+      </p>
+    <% end %> 
+      
+    <p>
+      <strong>Notes:</strong>
+      <%= exercise.notes %>
+    </p>
+  
+    <p>
+      <strong>Is custom:</strong>
+      <%= exercise.is_custom %>
+    </p>
+  
+  </div>
+  

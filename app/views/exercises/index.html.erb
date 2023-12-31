@@ -4,10 +4,16 @@
 
 <div id="exercises">
   <% @exercises.each do |exercise| %>
-    <%= render exercise %>
-    <p>
-      <%= link_to "Show this exercise", exercise %>
-    </p>
+
+    <% if exercise.is_a?(Exercise) %>
+      <%= render exercise %>
+      <p>
+        <%= link_to "Show this exercise", exercise %>
+      </p>
+
+    <% else %>
+     <%= render partial: 'standard_exercise', locals: { exercise: exercise } %>
+    <% end %>
   <% end %>
 </div>
 

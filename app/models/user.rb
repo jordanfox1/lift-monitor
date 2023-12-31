@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   has_one :exercise_log, dependent: :destroy
   after_create :create_exercise_log
+
+  has_many :exercises
 end

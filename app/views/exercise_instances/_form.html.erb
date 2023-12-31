@@ -13,7 +13,7 @@
 
   <div>
     <%= form.label :exercise_id, style: "display: block" %>
-    <%= form.collection_select :exercise_id, Exercise.all, :id, :name, prompt: "Select an Exercise" %>
+    <%= form.collection_select :exercise_id, Exercise.all + StandardExercise.all, :id, :name, prompt: "Select an Exercise" %>
   </div>
 
   <div>

@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <p>you are logged in</p>
+    <% else %>
+      <p>you are logged out</p>
+    <% end %>
+      
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_31_090141) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_31_100205) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,7 +39,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_090141) do
   end
 
   create_table "exercise_instances", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "exercise_log_id", null: false
     t.bigint "exercise_id", null: false
     t.integer "weight"
@@ -52,7 +51,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_090141) do
     t.datetime "updated_at", null: false
     t.index ["exercise_id"], name: "index_exercise_instances_on_exercise_id"
     t.index ["exercise_log_id"], name: "index_exercise_instances_on_exercise_log_id"
-    t.index ["user_id"], name: "index_exercise_instances_on_user_id"
   end
 
   create_table "exercise_logs", force: :cascade do |t|
@@ -94,7 +92,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_090141) do
   add_foreign_key "comments", "articles"
   add_foreign_key "exercise_instances", "exercise_logs"
   add_foreign_key "exercise_instances", "exercises"
-  add_foreign_key "exercise_instances", "users"
   add_foreign_key "exercise_logs", "users"
   add_foreign_key "exercises", "categories"
 end

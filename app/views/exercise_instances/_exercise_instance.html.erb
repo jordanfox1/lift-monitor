@@ -1,17 +1,8 @@
 <div id="<%= dom_id exercise_instance %>">
-  <p>
-    <strong>User:</strong>
-    <%= exercise_instance.user_id %>
-  </p>
-
-  <p>
-    <strong>Exercise log:</strong>
-    <%= exercise_instance.exercise_log_id %>
-  </p>
 
   <p>
     <strong>Exercise:</strong>
-    <%= exercise_instance.exercise_id %>
+    <%= exercise_instance.exercise.name %>
   </p>
 
   <p>
@@ -26,12 +17,12 @@
 
   <p>
     <strong>Time:</strong>
-    <%= exercise_instance.time %>
+    <%= exercise_instance.time  %> min/s
   </p>
 
   <p>
     <strong>Distance:</strong>
-    <%= exercise_instance.distance %>
+    <%= exercise_instance.distance %> km/s
   </p>
 
   <p>

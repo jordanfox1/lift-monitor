@@ -6,9 +6,9 @@
   <% @exercise_instances.each do |exercise_instance| %>
     <%= render exercise_instance %>
     <p>
-      <%= link_to "Show this exercise instance", exercise_instance %>
+      <%= link_to "Show this exercise instance", exercise_log_exercise_instance_path(@exercise_log, exercise_instance) %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New exercise instance", new_exercise_instance_path %>
+<%= link_to "New exercise instance", new_exercise_log_exercise_instance_path(@exercise_log) %>

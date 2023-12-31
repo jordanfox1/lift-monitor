@@ -3,8 +3,8 @@
 <%= render @exercise_instance %>
 
 <div>
-  <%= link_to "Edit this exercise instance", edit_exercise_instance_path(@exercise_instance) %> |
-  <%= link_to "Back to exercise instances", exercise_instances_path %>
+  <%= link_to "Edit this exercise instance", edit_exercise_log_exercise_instance_path(@exercise_instance) %> |
+  <%= link_to "Back to exercise instances", exercise_log_exercise_instances_path(@exercise_log) %>
 
-  <%= button_to "Destroy this exercise instance", @exercise_instance, method: :delete %>
+  <%= button_to "Destroy this exercise instance", @exercise_log_exercise_instance, method: :delete %>
 </div>

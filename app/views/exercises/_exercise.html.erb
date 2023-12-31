@@ -9,11 +9,13 @@
     <%= exercise.description %>
   </p>
 
-  <p>
-    <strong>Category:</strong>
-    <%= @exercise.category.name %> 
-  </p>
-
+  <% if @exercise %>
+    <p>
+      <strong>Category:</strong>
+        <%= @exercise.category.name %>
+    </p>
+  <% end %> 
+    
   <p>
     <strong>Notes:</strong>
     <%= exercise.notes %>

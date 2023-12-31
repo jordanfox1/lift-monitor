@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :exercise_instances
+  resources :exercise_logs, only: [:show] do
+    resources :exercise_instances
+  end
   resources :exercises
   devise_for :users
 

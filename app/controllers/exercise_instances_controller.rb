@@ -1,14 +1,15 @@
 class ExerciseInstancesController < ApplicationController
-  before_action :set_exercise_instance, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :set_exercise_log
+  before_action :set_exercise_instance, only: %i[show edit update destroy]
 
   # GET /exercise_instances or /exercise_instances.json
   def index
-    @exercise_instances = ExerciseInstance.all
+    @exercise_instances = @exercise_log.exercise_instances
   end
 
   # GET /exercise_instances/1 or /exercise_instances/1.json
-  def show
-  end
+  def show; end
 
   # GET /exercise_instances/new
   def new
@@ -16,16 +17,17 @@ class ExerciseInstancesController < ApplicationController
   end
 
   # GET /exercise_instances/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /exercise_instances or /exercise_instances.json
   def create
-    @exercise_instance = ExerciseInstance.new(exercise_instance_params)
+    @exercise_instance = current_user.exercise_log.exercise_instances.new(exercise_instance_params)
 
     respond_to do |format|
       if @exercise_instance.save
-        format.html { redirect_to exercise_instance_url(@exercise_instance), notice: "Exercise instance was successfully created." }
+        format.html do
+          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance), notice: 'Exercise instance was successfully created.'
+        end
         format.json { render :show, status: :created, location: @exercise_instance }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +40,9 @@ class ExerciseInstancesController < ApplicationController
   def update
     respond_to do |format|
       if @exercise_instance.update(exercise_instance_params)
-        format.html { redirect_to exercise_instance_url(@exercise_instance), notice: "Exercise instance was successfully updated." }
+        format.html do
+          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance), notice: 'Exercise instance was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @exercise_instance }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +56,25 @@ class ExerciseInstancesController < ApplicationController
     @exercise_instance.destroy!
 
     respond_to do |format|
-      format.html { redirect_to exercise_instances_url, notice: "Exercise instance was successfully destroyed." }
+      format.html { redirect_to exercise_log_exercise_instances_path, notice: 'Exercise instance was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_exercise_instance
-      @exercise_instance = ExerciseInstance.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def exercise_instance_params
-      params.require(:exercise_instance).permit(:user_id, :exercise_log_id, :exercise_id, :weight, :reps, :time, :distance, :sets, :is_pr)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_exercise_instance
+    @exercise_instance = ExerciseInstance.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def exercise_instance_params
+    params.require(:exercise_instance).permit(:exercise_log_id, :exercise_id, :weight, :reps, :time, :distance,
+                                              :sets, :is_pr)
+  end
+
+  def set_exercise_log
+    @exercise_log = current_user.exercise_log
+  end
 end

@@ -1,4 +1,4 @@
-<%= form_with(model: exercise_instance) do |form| %>
+<%= form_with(model: [@exercise_log, @exercise_instance], local: true) do |form| %>
   <% if exercise_instance.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(exercise_instance.errors.count, "error") %> prohibited this exercise_instance from being saved:</h2>
@@ -12,18 +12,8 @@
   <% end %>
 
   <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
-    <%= form.label :exercise_log_id, style: "display: block" %>
-    <%= form.text_field :exercise_log_id %>
-  </div>
-
-  <div>
     <%= form.label :exercise_id, style: "display: block" %>
-    <%= form.text_field :exercise_id %>
+    <%= form.collection_select :exercise_id, Exercise.all, :id, :name, prompt: "Select an Exercise" %>
   </div>
 
   <div>

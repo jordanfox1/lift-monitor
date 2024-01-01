@@ -2,6 +2,18 @@
 
 <h1>Exercise instances</h1>
 
+<%= month_calendar(events: @exercise_instances) do |date, exercise_instances| %>
+  <%= date %>
+
+  <% exercise_instances_for_date = exercise_instances.select { |ei| ei.start_time.to_date == date } %>
+  
+  <% exercise_instances_for_date.each do |exercise_instance| %>
+    <div>
+      <%= exercise_instance.exercise.name %>
+    </div>
+  <% end %>
+<% end %>
+
 <div id="exercise_instances">
   <% @exercise_instances.each do |exercise_instance| %>
     <%= render exercise_instance %>

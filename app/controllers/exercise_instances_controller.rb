@@ -27,7 +27,12 @@ class ExerciseInstancesController < ApplicationController
   # POST /exercise_instances or /exercise_instances.json
   def create
     @exercise_instance = current_user.exercise_log.exercise_instances.new(exercise_instance_params)
-    @exercise_instance.start_time ||= Time.current
+
+    if params[:exercise_instance][:start_time].present? #Check the params for start time, and default to time.now
+      @exercise_instance.start_time = DateTime.parse(params[:exercise_instance][:start_time])
+    else
+      @exercise_instance.start_time = Time.current
+    end
 
     respond_to do |format|
       if @exercise_instance.save
@@ -77,7 +82,7 @@ class ExerciseInstancesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def exercise_instance_params
     params.require(:exercise_instance).permit(:exercise_log_id, :exercise_id, :standard_exercise_id, :weight, :reps, :time, :distance,
-                                              :sets, :is_pr)
+                                              :sets, :is_pr, :start_time)
   end
 
   def set_exercise_log

@@ -13,7 +13,7 @@
 
   <div>
     <%= form.label :exercise_id, style: "display: block" %>
-    <%= form.collection_select :exercise_id, Exercise.all :id, :name, prompt: "Select an Exercise" %>
+    <%= form.collection_select :exercise_id, Exercise.all, :id, :name, prompt: "Select an Exercise" %>
   </div>
 
   <div>
@@ -45,6 +45,9 @@
     <%= form.label :is_pr, style: "display: block" %>
     <%= form.check_box :is_pr %>
   </div>
+
+  <!-- Add a hidden field to capture the start_time parameter from the URL -->
+  <%= form.hidden_field :start_time, value: params[:start_time] if params[:start_time].present? %>
 
   <div>
     <%= form.submit %>

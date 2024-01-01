@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
   
+  resources :exercise_instances
   resources :exercise_logs, only: [:show] do
     resources :exercise_instances
   end

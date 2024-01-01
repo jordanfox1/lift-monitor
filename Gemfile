@@ -70,3 +70,6 @@ end
 gem "devise", "~> 4.9"
 
 gem "simple_calendar", "~> 2.4"
+
+# Use Sass to process CSS
+gem "sassc-rails"

@@ -5,7 +5,12 @@ class ExerciseInstancesController < ApplicationController
 
   # GET /exercise_instances or /exercise_instances.json
   def index
-    @exercise_instances = @exercise_log.exercise_instances
+    # @exercise_instances = @exercise_log.exercise_instances
+
+      # Scope your query to the dates being shown:
+      start_date = params.fetch(:start_date, Date.today).to_date
+      @exercise_instances = @exercise_log.exercise_instances
+      .where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
   end
 
   # GET /exercise_instances/1 or /exercise_instances/1.json
@@ -22,6 +27,7 @@ class ExerciseInstancesController < ApplicationController
   # POST /exercise_instances or /exercise_instances.json
   def create
     @exercise_instance = current_user.exercise_log.exercise_instances.new(exercise_instance_params)
+    @exercise_instance.start_time ||= Time.current
 
     respond_to do |format|
       if @exercise_instance.save
@@ -70,7 +76,7 @@ class ExerciseInstancesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def exercise_instance_params
-    params.require(:exercise_instance).permit(:exercise_log_id, :exercise_id, :weight, :reps, :time, :distance,
+    params.require(:exercise_instance).permit(:exercise_log_id, :exercise_id, :standard_exercise_id, :weight, :reps, :time, :distance,
                                               :sets, :is_pr)
   end
 

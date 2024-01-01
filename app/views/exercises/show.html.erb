@@ -1,10 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @exercise %>
 
-<div>
-  <%= link_to "Edit this exercise", edit_exercise_path(@exercise) %> |
-  <%= link_to "Back to exercises", exercises_path %>
+<% if @exercise.is_custom %>
+  <%= render @exercise %>
+  <div>
+    <%= link_to "Edit this exercise", edit_exercise_path(@exercise) %> |
+    <%= link_to "Back to exercises", exercises_path %>
 
-  <%= button_to "Destroy this exercise", @exercise, method: :delete %>
-</div>
+    <%= button_to "Destroy this exercise", @exercise, method: :delete %>
+  </div>
+<% else %>
+  <%= render partial: 'standard_exercise', locals: { exercise: @exercise } %>
+  <div>
+    <%= link_to "Back to exercises", exercises_path %>
+  </div>
+<% end %>

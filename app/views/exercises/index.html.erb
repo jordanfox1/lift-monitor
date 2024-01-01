@@ -13,6 +13,9 @@
 
     <% else %>
      <%= render partial: 'standard_exercise', locals: { exercise: exercise } %>
+     <p>
+      <%= link_to "Show this exercise", exercise_path(exercise) %>
+    </p>
     <% end %>
   <% end %>
 </div>

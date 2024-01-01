@@ -5,7 +5,7 @@ class ExercisesController < ApplicationController
 
   # GET /exercises or /exercises.json
   def index
-    @exercises = current_user.exercises + StandardExercise.all
+    @exercises = current_user.exercises
   end
 
   # GET /exercises/1 or /exercises/1.json
@@ -61,12 +61,7 @@ class ExercisesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_exercise
-    # this should be improved. it relies on an exception.
-    begin
-      @exercise = Exercise.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      @exercise = StandardExercise.find(params[:id])
-    end
+    @exercise = Exercise.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

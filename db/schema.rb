@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_01_035839) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_01_050807) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -103,17 +103,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_035839) do
     t.index ["user_id"], name: "index_exercises_on_user_id"
   end
 
-  create_table "standard_exercises", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.text "notes"
-    t.boolean "is_custom"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "category_id", null: false
-    t.index ["category_id"], name: "index_standard_exercises_on_category_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -139,5 +128,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_035839) do
   add_foreign_key "exercise_logs", "users"
   add_foreign_key "exercises", "categories"
   add_foreign_key "exercises", "users"
-  add_foreign_key "standard_exercises", "categories"
 end

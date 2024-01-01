@@ -4,8 +4,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
+  include DefaultExercises
   has_one :exercise_log, dependent: :destroy
-  after_create :create_exercise_log
+  has_many :exercises, dependent: :destroy
 
-  has_many :exercises
+  after_create :create_exercise_log, :create_default_exercises
+
+  private
+
+  def create_exercise_log
+    ExerciseLog.create(user: self)
+  end
 end

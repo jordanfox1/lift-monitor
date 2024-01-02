@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DefaultExercises
   extend ActiveSupport::Concern
 
@@ -6,7 +8,7 @@ module DefaultExercises
     legs_category = Category.find_or_create_by!(name: 'Legs')
     cardio_category = Category.find_or_create_by!(name: 'Cardio')
 
-    # Create standard exercises associated with the user
+    # Create  exercises associated with the user
     exercises = [
       { name: 'Bench Press', description: 'Description for bench press...', category: chest_category },
       { name: 'Squats', description: 'Description for squats...', category: legs_category },

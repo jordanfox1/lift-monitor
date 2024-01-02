@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 class ExercisesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_exercise, only: %i[show edit update destroy]
-  before_action :guard_standard_exercise, only: %i[edit update destroy]
 
   # GET /exercises or /exercises.json
   def index

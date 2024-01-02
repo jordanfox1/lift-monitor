@@ -1,1 +1,3 @@
-json.partial! "exercise_instances/exercise_instance", exercise_instance: @exercise_instance
+# frozen_string_literal: true
+
+json.partial! 'exercise_instances/exercise_instance', exercise_instance: @exercise_instance

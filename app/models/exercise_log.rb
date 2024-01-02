@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExerciseLog < ApplicationRecord
   belongs_to :user
   has_many :exercise_instances, dependent: :destroy

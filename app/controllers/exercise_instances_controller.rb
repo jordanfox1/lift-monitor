@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExerciseInstancesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_exercise_log
@@ -7,10 +9,10 @@ class ExerciseInstancesController < ApplicationController
   def index
     # @exercise_instances = @exercise_log.exercise_instances
 
-      # Scope your query to the dates being shown:
-      start_date = params.fetch(:start_date, Date.today).to_date
-      @exercise_instances = @exercise_log.exercise_instances
-      .where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
+    # Scope your query to the dates being shown:
+    start_date = params.fetch(:start_date, Date.today).to_date
+    @exercise_instances = @exercise_log.exercise_instances
+                                       .where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
   end
 
   # GET /exercise_instances/1 or /exercise_instances/1.json
@@ -28,7 +30,7 @@ class ExerciseInstancesController < ApplicationController
   def create
     @exercise_instance = current_user.exercise_log.exercise_instances.new(exercise_instance_params)
 
-    if params[:exercise_instance][:start_time].present? #Check the params for start time, and default to time.now
+    if params[:exercise_instance][:start_time].present? # Check the params for start time, and default to time.now
       @exercise_instance.start_time = DateTime.parse(params[:exercise_instance][:start_time])
     else
       @exercise_instance.start_time = Time.current
@@ -37,7 +39,8 @@ class ExerciseInstancesController < ApplicationController
     respond_to do |format|
       if @exercise_instance.save
         format.html do
-          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance), notice: 'Exercise instance was successfully created.'
+          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
+                      notice: 'Exercise instance was successfully created.'
         end
         format.json { render :show, status: :created, location: @exercise_instance }
       else
@@ -52,7 +55,8 @@ class ExerciseInstancesController < ApplicationController
     respond_to do |format|
       if @exercise_instance.update(exercise_instance_params)
         format.html do
-          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance), notice: 'Exercise instance was successfully updated.'
+          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
+                      notice: 'Exercise instance was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @exercise_instance }
       else
@@ -67,7 +71,9 @@ class ExerciseInstancesController < ApplicationController
     @exercise_instance.destroy!
 
     respond_to do |format|
-      format.html { redirect_to exercise_log_exercise_instances_path, notice: 'Exercise instance was successfully destroyed.' }
+      format.html do
+        redirect_to exercise_log_exercise_instances_path, notice: 'Exercise instance was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
@@ -81,7 +87,7 @@ class ExerciseInstancesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def exercise_instance_params
-    params.require(:exercise_instance).permit(:exercise_log_id, :exercise_id, :standard_exercise_id, :weight, :reps, :time, :distance,
+    params.require(:exercise_instance).permit(:exercise_log_id, :exercise_id, :weight, :reps, :time, :distance,
                                               :sets, :is_pr, :start_time)
   end
 

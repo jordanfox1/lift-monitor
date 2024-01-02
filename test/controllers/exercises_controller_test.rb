@@ -1,45 +1,56 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class ExercisesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @exercise = exercises(:one)
   end
 
-  test "should get index" do
+  test 'should not save exercise without name' do
+    Exercise.new
+    assert_not exercise.save
+  end
+
+  test 'should get index' do
     get exercises_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_exercise_url
     assert_response :success
   end
 
-  test "should create exercise" do
-    assert_difference("Exercise.count") do
-      post exercises_url, params: { exercise: { description: @exercise.description, is_custom: @exercise.is_custom, name: @exercise.name, notes: @exercise.notes, reps: @exercise.reps, sets: @exercise.sets, weight: @exercise.weight } }
+  test 'should create exercise' do
+    assert_difference('Exercise.count') do
+      post exercises_url,
+           params: { exercise: { description: @exercise.description, is_custom: @exercise.is_custom, name: @exercise.name,
+                                 notes: @exercise.notes, reps: @exercise.reps, sets: @exercise.sets, weight: @exercise.weight } }
     end
 
     assert_redirected_to exercise_url(Exercise.last)
   end
 
-  test "should show exercise" do
+  test 'should show exercise' do
     get exercise_url(@exercise)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_exercise_url(@exercise)
     assert_response :success
   end
 
-  test "should update exercise" do
-    patch exercise_url(@exercise), params: { exercise: { description: @exercise.description, is_custom: @exercise.is_custom, name: @exercise.name, notes: @exercise.notes, reps: @exercise.reps, sets: @exercise.sets, weight: @exercise.weight } }
+  test 'should update exercise' do
+    patch exercise_url(@exercise),
+          params: { exercise: { description: @exercise.description, is_custom: @exercise.is_custom, name: @exercise.name,
+                                notes: @exercise.notes, reps: @exercise.reps, sets: @exercise.sets, weight: @exercise.weight } }
     assert_redirected_to exercise_url(@exercise)
   end
 
-  test "should destroy exercise" do
-    assert_difference("Exercise.count", -1) do
+  test 'should destroy exercise' do
+    assert_difference('Exercise.count', -1) do
       delete exercise_url(@exercise)
     end
 

@@ -80,4 +80,4 @@ gem 'minitest-reporters'
 
 gem 'rubocop-rails', require: false
 
-gem "factory_bot", "~> 6.4"
+gem 'factory_bot', '~> 6.4'

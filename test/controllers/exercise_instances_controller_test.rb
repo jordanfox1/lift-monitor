@@ -6,6 +6,8 @@ class ExerciseInstancesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
+    @exercise = exercises(:one)
+    @exercise_log = exercise_logs(:one)
     @exercise_instance = exercise_instances(:one)
     sign_in users(:one)
   end
@@ -14,26 +16,33 @@ class ExerciseInstancesControllerTest < ActionDispatch::IntegrationTest
     sign_out users(:one)
   end
 
-  test 'should get exercise logs index page' do
-    exercise_log = exercise_logs(:one)
-
-    get exercise_log_exercise_instances_path(exercise_log_id: exercise_log.id)
-
+  test 'should get exercise instance index page' do
+    get exercise_log_exercise_instances_path(exercise_log_id: @exercise_log.id)
     assert_response :success
   end
 
-  # test "should get new" do
-  #   get new_exercise_instance_url
-  #   assert_response :success
-  # end
+  test 'should get exercise instance new page' do
+    get new_exercise_log_exercise_instance_path(exercise_log_id: @exercise_log.id)
+    assert_response :success
+  end
 
-  # test "should create exercise_instance" do
-  #   assert_difference("ExerciseInstance.count") do
-  #     post exercise_instances_url, params: { exercise_instance: { distance: @exercise_instance.distance, exercise_id: @exercise_instance.exercise_id, exercise_log_id: @exercise_instance.exercise_log_id, is_pr: @exercise_instance.is_pr, reps: @exercise_instance.reps, sets: @exercise_instance.sets, time: @exercise_instance.time, user_id: @exercise_instance.user_id, weight: @exercise_instance.weight } }
-  #   end
+  test 'should create exercise_instance' do
+    assert_difference('ExerciseInstance.count') do
+      post exercise_log_exercise_instances_path(exercise_log_id: @exercise_log.id),
+           params: { exercise_instance: { distance: 200,
+                                          exercise_id: @exercise.id,
+                                          exercise_log_id: @exercise_log.id,
+                                          is_pr: false,
+                                          reps: 2,
+                                          sets: 2,
+                                          start_time: Time.current,
+                                          time: 200,
+                                          weight: 30 } }
+    end
 
-  #   assert_redirected_to exercise_instance_url(ExerciseInstance.last)
-  # end
+    assert_response :found
+    assert_redirected_to exercise_log_exercise_instance_url(@exercise_log, ExerciseInstance.last)
+  end
 
   # test "should show exercise_instance" do
   #   get exercise_instance_url(@exercise_instance)

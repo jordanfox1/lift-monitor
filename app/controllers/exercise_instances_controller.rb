@@ -44,8 +44,10 @@ class ExerciseInstancesController < ApplicationController
         end
         format.json { render :show, status: :created, location: @exercise_instance }
       else
+        debugger
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @exercise_instance.errors, status: :unprocessable_entity }
+        debugger
       end
     end
   end

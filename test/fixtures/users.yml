@@ -7,7 +7,9 @@
 one:
   email: test@test.com
   encrypted_password: test
+  confirmed_at: 01/02/2024 # this confirmed_at field is required for confirmable module
 
 two:
   email: foo@bar.com
   encrypted_password: test
+  confirmed_at: 01/02/2024 

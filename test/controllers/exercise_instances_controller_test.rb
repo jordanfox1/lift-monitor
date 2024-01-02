@@ -3,15 +3,20 @@
 require 'test_helper'
 
 class ExerciseInstancesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @exercise_instance = exercise_instances(:one)
+    sign_in users(:one)
   end
 
-  test 'should get index' do
-    # Assuming you have a fixture or factory for ExerciseLog
+  teardown do
+    sign_out users(:one)
+  end
+
+  test 'should get exercise logs index page' do
     exercise_log = exercise_logs(:one)
 
-    # Pass exercise_log_id as a parameter when generating the URL
     get exercise_log_exercise_instances_path(exercise_log_id: exercise_log.id)
 
     assert_response :success

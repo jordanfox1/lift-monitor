@@ -79,3 +79,5 @@ gem 'sassc-rails'
 gem 'minitest-reporters'
 
 gem 'rubocop-rails', require: false
+
+gem "factory_bot", "~> 6.4"

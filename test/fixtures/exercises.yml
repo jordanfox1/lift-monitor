@@ -16,3 +16,11 @@ two:
   is_custom: false
   category: two
   user: two
+
+not_referenced:
+  name: MyString
+  description: MyText
+  notes: MyText
+  is_custom: false
+  category: two
+  user: two

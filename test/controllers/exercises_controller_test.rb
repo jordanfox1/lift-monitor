@@ -9,10 +9,11 @@ class ExercisesControllerTest < ActionDispatch::IntegrationTest
     @exercise = exercises(:one)
     @category = categories(:one)
     @not_referenced_exercise = exercises(:not_referenced)
+    @non_custom_exercise = exercises(:non_custom)
     sign_in users(:one)
   end
 
-  teardown do 
+  teardown do
     sign_out users(:one)
   end
 
@@ -34,7 +35,7 @@ class ExercisesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :found
-    #  not sure if the below behaviour should happen
+    # not sure if the below behaviour should happen
     # assert_redirected_to exercise_url(Exercise.last)
   end
 
@@ -48,16 +49,15 @@ class ExercisesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-test 'should update exercise' do
+  test 'should update exercise' do
     patch exercise_url(@exercise),
-          params: { exercise: { description: 'Updated description', name: 'Updated Name'} }
+          params: { exercise: { description: 'Updated description', name: 'Updated Name' } }
 
     assert_redirected_to exercise_url(@exercise)
     @exercise.reload
-    assert_equal 'Updated description', @exercise.description 
+    assert_equal 'Updated description', @exercise.description
     assert_equal 'Updated Name', @exercise.name
   end
-
 
   test 'should destroy exercise' do
     assert_difference('Exercise.count', -1) do
@@ -65,5 +65,15 @@ test 'should update exercise' do
     end
 
     assert_redirected_to exercises_url
+  end
+
+  test 'should not destroy non-custom exercises' do
+    count = Exercise.count
+
+    assert_raises(ActiveRecord::RecordNotDestroyed) do
+      delete exercise_url(@non_custom_exercise)
+    end
+
+    assert_equal count, Exercise.count # the number of exercises should not change
   end
 end

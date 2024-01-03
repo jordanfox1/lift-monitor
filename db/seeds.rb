@@ -9,64 +9,36 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-chest_category = Category.find_or_create_by!(name: 'Chest')
-legs_category = Category.find_or_create_by!(name: 'Legs')
-cardio_category = Category.find_or_create_by!(name: 'Cardio')
+categories = [
+  'Chest',
+  'Legs',
+  'Arms',
+  'Back',
+  'Shoulders',
+  'Core',
+  'Total Body',
+  'Cardio',
+  'Yoga/Stretches',
+  'Other'
+]
 
-# Create standard exercises
-Exercise.find_or_create_by!(
-  name: 'Bench Press',
-  description: 'Description for bench press...',
-  category: chest_category,
-  is_custom: false
-)
+categories.each do |name|
+  Category.find_or_create_by!(name: name)
+end
 
-Exercise.find_or_create_by!(
-  name: 'Squats',
-  description: 'Description for squats...',
-  category: legs_category,
-  is_custom: false
-)
+cardio_exercises = [
+  ['Swimming', 'Description for swimming...'],
+  ['Jogging', 'Description for jogging...'],
+  ['Cycling', 'Description for cycling...'],
+  ['Jump Rope', 'Description for jump rope...'],
+  ['High Knees', 'Description for high knees...']
+]
 
-Exercise.find_or_create_by!(
-  name: 'Deadlifts',
-  description: 'Description for deadlifts...',
-  category: legs_category,
-  is_custom: false
-)
-
-Exercise.find_or_create_by!(
-  name: 'Swimming',
-  description: 'Description for swimming...',
-  category: cardio_category,
-  is_custom: false
-)
-
-Exercise.find_or_create_by!(
-  name: 'Jogging',
-  description: 'Description for jogging...',
-  category: cardio_category,
-  is_custom: false
-)
-
-# Add more standard exercises
-Exercise.find_or_create_by!(
-  name: 'Cycling',
-  description: 'Description for cycling...',
-  category: cardio_category,
-  is_custom: false
-)
-
-Exercise.find_or_create_by!(
-  name: 'Jump Rope',
-  description: 'Description for jump rope...',
-  category: cardio_category,
-  is_custom: false
-)
-
-Exercise.find_or_create_by!(
-  name: 'High Knees',
-  description: 'Description for high knees...',
-  category: cardio_category,
-  is_custom: false
-)
+cardio_exercises.each do |name, description|
+  Exercise.find_or_create_by!(
+    name: name,
+    description: description,
+    category: Category.find_by(name: 'Cardio'),
+    is_custom: false
+  )
+end

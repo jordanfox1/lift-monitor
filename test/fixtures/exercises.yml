@@ -4,7 +4,7 @@ one:
   name: Cycling
   description: MyText
   notes: MyText
-  is_custom: false
+  is_custom: true
   target_muscle: Biceps
   category: one
   user: one
@@ -13,13 +13,21 @@ two:
   name: MyString
   description: MyText
   notes: MyText
-  is_custom: false
+  is_custom: true
   category: two
   user: two
 
 not_referenced:
   name: MyString
   description: MyText
+  notes: MyText
+  is_custom: true
+  category: two
+  user: two
+
+non_custom: 
+  name: Not Custom
+  description: Not Custom
   notes: MyText
   is_custom: false
   category: two

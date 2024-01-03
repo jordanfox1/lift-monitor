@@ -7,4 +7,12 @@ class Exercise < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :category, presence: true
+
+  before_destroy :check_if_custom
+
+  private
+
+  def check_if_custom
+    raise ActiveRecord::RecordNotDestroyed, 'Cannot destroy non-custom exercise' unless is_custom
+  end
 end

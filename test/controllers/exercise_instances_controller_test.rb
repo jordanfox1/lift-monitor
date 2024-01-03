@@ -26,6 +26,16 @@ class ExerciseInstancesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should show exercise_instance' do
+    get exercise_log_exercise_instance_path(@exercise_log, @exercise_instance)
+    assert_response :success
+  end
+
+  test 'should get edit' do
+    get edit_exercise_log_exercise_instance_path(@exercise_log, @exercise_instance)
+    assert_response :success
+  end
+
   test 'should create exercise_instance' do
     assert_difference('ExerciseInstance.count') do
       post exercise_log_exercise_instances_path(exercise_log_id: @exercise_log.id),
@@ -41,29 +51,34 @@ class ExerciseInstancesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :found
-    assert_redirected_to exercise_log_exercise_instance_url(@exercise_log, ExerciseInstance.last)
+    # I don't think this will be the final behaviour, so removing it now.
+    # assert_redirected_to exercise_log_exercise_instance_url(@exercise_log, ExerciseInstance.last)
   end
 
-  # test "should show exercise_instance" do
-  #   get exercise_instance_url(@exercise_instance)
-  #   assert_response :success
-  # end
+  test 'should update exercise_instance' do
+    patch exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
+          params: { exercise_instance: { distance: 300,
+                                         exercise_id: @exercise.id,
+                                         exercise_log_id: @exercise_log.id,
+                                         is_pr: true,
+                                         reps: 3,
+                                         sets: 3,
+                                         start_time: Time.current,
+                                         time: 300,
+                                         weight: 40 } }
 
-  # test "should get edit" do
-  #   get edit_exercise_instance_url(@exercise_instance)
-  #   assert_response :success
-  # end
+    assert_response :found
 
-  # test "should update exercise_instance" do
-  #   patch exercise_instance_url(@exercise_instance), params: { exercise_instance: { distance: @exercise_instance.distance, exercise_id: @exercise_instance.exercise_id, exercise_log_id: @exercise_instance.exercise_log_id, is_pr: @exercise_instance.is_pr, reps: @exercise_instance.reps, sets: @exercise_instance.sets, time: @exercise_instance.time, weight: @exercise_instance.weight } }
-  #   assert_redirected_to exercise_instance_url(@exercise_instance)
-  # end
+    assert_equal 300, @exercise_instance.reload.distance
+    assert_equal 3, @exercise_instance.reload.reps
+    assert_equal 3, @exercise_instance.reload.sets
+    assert_equal 40, @exercise_instance.reload.weight
+    assert_equal true, @exercise_instance.reload.is_pr
+  end
 
-  # test "should destroy exercise_instance" do
-  #   assert_difference("ExerciseInstance.count", -1) do
-  #     delete exercise_instance_url(@exercise_instance)
-  #   end
-
-  #   assert_redirected_to exercise_instances_url
-  # end
+  test 'should destroy exercise_instance' do
+    assert_difference('ExerciseInstance.count', -1) do
+      delete exercise_log_exercise_instance_path(@exercise_log, @exercise_instance)
+    end
+  end
 end

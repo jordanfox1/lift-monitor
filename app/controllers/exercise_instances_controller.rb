@@ -40,19 +40,14 @@ class ExerciseInstancesController < ApplicationController
 
     respond_to do |format|
       if @exercise_instance.save
-        # format.html do
-        #   redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
-        #               notice: 'Exercise instance was successfully created.'
-        # end
-        # format.json { render :show, status: :created, location: @exercise_instance }
-        format.turbo_stream do
-          render_exercise_instance_form_fields
+        format.html do
+          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
+                      notice: 'Exercise instance was successfully created.'
         end
+        format.json { render :show, status: :created, location: @exercise_instance }
       else
-        debugger
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @exercise_instance.errors, status: :unprocessable_entity }
-        debugger
       end
     end
   end
@@ -61,13 +56,9 @@ class ExerciseInstancesController < ApplicationController
   def update
     respond_to do |format|
       if @exercise_instance.update(exercise_instance_params)
-        # format.html do
-        #   redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
-        #               notice: 'Exercise instance was successfully updated.'
-        # end
-        # format.json { render :show, status: :ok, location: @exercise_instance }
-        format.turbo_stream do
-          render_exercise_instance_form_fields
+        format.html do
+          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
+                      notice: 'Exercise instance was successfully updated.'
         end
       else
         format.html { render :edit, status: :unprocessable_entity }

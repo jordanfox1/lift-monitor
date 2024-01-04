@@ -13,7 +13,7 @@
 
 <div>
   <%= form.label :exercise_id, style: "display: block" %>
-  <select name="exercise_instance[exercise_id]" id="exercise_instance_exercise_id" onchange="this.form.requestSubmit();" data-turbo-action="replace" data-turbo-frame="exercise_form">
+  <select name="exercise_instance[exercise_id]" id="exercise_instance_exercise_id" onchange="this.form.requestSubmit();" data-turbo-action="update" data-turbo-frame="exercise_form">
     <% Exercise.all.each do |exercise| %>
       <option value="<%= exercise.id %>"><%= exercise.name %></option>
     <% end %>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ExerciseInstancesController < ApplicationController
-  include RenderExerciseInstanceFormFields 
+  include RenderExerciseInstanceFormFields
 
   before_action :authenticate_user!
   before_action :set_exercise_log

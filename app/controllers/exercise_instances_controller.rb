@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ExerciseInstancesController < ApplicationController
+  include RenderExerciseInstanceFormFields 
+
   before_action :authenticate_user!
   before_action :set_exercise_log
   before_action :set_exercise_instance, only: %i[show edit update destroy]
@@ -38,11 +40,14 @@ class ExerciseInstancesController < ApplicationController
 
     respond_to do |format|
       if @exercise_instance.save
-        format.html do
-          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
-                      notice: 'Exercise instance was successfully created.'
+        # format.html do
+        #   redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
+        #               notice: 'Exercise instance was successfully created.'
+        # end
+        # format.json { render :show, status: :created, location: @exercise_instance }
+        format.turbo_stream do
+          render_exercise_instance_form_fields
         end
-        format.json { render :show, status: :created, location: @exercise_instance }
       else
         debugger
         format.html { render :new, status: :unprocessable_entity }
@@ -56,11 +61,14 @@ class ExerciseInstancesController < ApplicationController
   def update
     respond_to do |format|
       if @exercise_instance.update(exercise_instance_params)
-        format.html do
-          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
-                      notice: 'Exercise instance was successfully updated.'
+        # format.html do
+        #   redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
+        #               notice: 'Exercise instance was successfully updated.'
+        # end
+        # format.json { render :show, status: :ok, location: @exercise_instance }
+        format.turbo_stream do
+          render_exercise_instance_form_fields
         end
-        format.json { render :show, status: :ok, location: @exercise_instance }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @exercise_instance.errors, status: :unprocessable_entity }

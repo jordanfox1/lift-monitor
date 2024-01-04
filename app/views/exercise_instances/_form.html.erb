@@ -11,35 +11,17 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :exercise_id, style: "display: block" %>
-    <%= form.collection_select :exercise_id, Exercise.all, :id, :name, prompt: "Select an Exercise" %>
-  </div>
+<div>
+  <%= form.label :exercise_id, style: "display: block" %>
+  <select name="exercise_instance[exercise_id]" id="exercise_instance_exercise_id" onchange="this.form.requestSubmit();" data-turbo-action="replace" data-turbo-frame="exercise_form">
+    <% Exercise.all.each do |exercise| %>
+      <option value="<%= exercise.id %>"><%= exercise.name %></option>
+    <% end %>
+  </select>
+</div>
 
-  <div>
-    <%= form.label :weight, style: "display: block" %>
-    <%= form.number_field :weight %>
-  </div>
-
-  <div>
-    <%= form.label :reps, style: "display: block" %>
-    <%= form.number_field :reps %>
-  </div>
-
-  <div>
-    <%= form.label :time, style: "display: block" %>
-    <%= form.number_field :time %>
-  </div>
-
-  <div>
-    <%= form.label :distance, style: "display: block" %>
-    <%= form.number_field :distance %>
-  </div>
-
-  <div>
-    <%= form.label :sets, style: "display: block" %>
-    <%= form.number_field :sets %>
-  </div>
+  
+  <%= render "strength_form_fields", exercise_instance: @exercise_instance %>
 
   <div>
     <%= form.label :is_pr, style: "display: block" %>

@@ -26,19 +26,22 @@ categories.each do |name|
   Category.find_or_create_by!(name: name)
 end
 
-cardio_exercises = [
-  ['Swimming', 'Description for swimming...'],
-  ['Jogging', 'Description for jogging...'],
-  ['Cycling', 'Description for cycling...'],
-  ['Jump Rope', 'Description for jump rope...'],
-  ['High Knees', 'Description for high knees...']
-]
+# cardio_exercises = [
+#   ['Swimming', 'Description for swimming...'],
+#   ['Jogging', 'Description for jogging...'],
+#   ['Cycling', 'Description for cycling...'],
+#   ['Jump Rope', 'Description for jump rope...'],
+#   ['High Knees', 'Description for high knees...']
+# ]
 
-cardio_exercises.each do |name, description|
-  Exercise.find_or_create_by!(
-    name: name,
-    description: description,
-    category: Category.find_by(name: 'Cardio'),
-    is_custom: false
-  )
-end
+# User.all.each do |user|
+#   cardio_exercises.each do |name, description|
+#     Exercise.find_or_create_by!(
+#       name: name,
+#       description: description,
+#       category: Category.find_by(name: 'Cardio'),
+#       is_custom: false,
+#       user: user
+#     )
+#   end
+# end

@@ -1,9 +1,25 @@
-<h1>New exercise instance</h1>
+<section class="today-date-container">
+  <button class="left-arrow"><</button>
+  <strong class="date">TODAY, DATE</strong>
+  <button class="right-arrow">></button>
+</section>
 
-<%= render "form", exercise_instance: @exercise_instance %>
+<article class="timer-container">
+  <span></span>
+  <button>-</button>
+  <button>start/pause</button>
+  <button>+</button>
+  <span></span>
+</article>
 
-<br>
+<section class="dynamic-card-container">
+  <div class="ex-card">ex 1</div>
+  <div class="ex-card">ex 2</div>
+  <div class="ex-card">ex 3</div>
+  <button>+ Add exercise</button>
+</section>
+
 
 <div>
-  <%= link_to "Back to exercise instances", exercise_log_exercise_instances_path(@exercise_log) %>
+  <%= link_to "Back to Calendar", exercise_log_exercise_instances_path(@exercise_log) %>
 </div>

@@ -22,6 +22,7 @@
               data-exercise-instance-target="select" data-action="change->exercise-instance#hideOrShowElement">
 
               <% Exercise.all.group_by(&:category).each do |category, exercises| %>
+              
                 <optgroup label="<%= category.name %>">
                   <% exercises.each do |exercise| %>
                     <option value="<%= exercise.id %>">
@@ -29,6 +30,7 @@
                     </option>
                     <% end %>
                 </optgroup>
+
                 <% end %>
             </select>
         </div>
@@ -49,7 +51,6 @@
             <input type="number" name="exercise_instance[sets]" id="exercise_instance_sets">
           </div>
         </div>
-
 
         <div data-exercise-instance-target="cardioFormInputs">
           <div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_01_035839) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_07_102505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,11 +69,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_035839) do
   create_table "exercise_instances", force: :cascade do |t|
     t.bigint "exercise_log_id", null: false
     t.bigint "exercise_id", null: false
-    t.integer "weight"
-    t.integer "reps"
-    t.integer "time"
-    t.integer "distance"
-    t.integer "sets"
     t.boolean "is_pr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -103,6 +98,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_035839) do
     t.index ["user_id"], name: "index_exercises_on_user_id"
   end
 
+  create_table "set_instances", force: :cascade do |t|
+    t.integer "weight"
+    t.integer "reps"
+    t.integer "time"
+    t.integer "distance"
+    t.integer "set_number"
+    t.bigint "exercise_instance_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_instance_id"], name: "index_set_instances_on_exercise_instance_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -128,4 +135,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_035839) do
   add_foreign_key "exercise_logs", "users"
   add_foreign_key "exercises", "categories"
   add_foreign_key "exercises", "users"
+  add_foreign_key "set_instances", "exercise_instances"
 end

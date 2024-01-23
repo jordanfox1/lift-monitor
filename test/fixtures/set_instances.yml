@@ -1,17 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  weight: 1
-  reps: 1
-  time: 1
-  distance: 1
-  set_number: 1
+  weight: 50
+  reps: 10
+  time: 30
+  distance: 500
+  set_number: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
   exercise_instance: one
 
 two:
-  weight: 1
-  reps: 1
-  time: 1
-  distance: 1
-  set_number: 1
+  weight: 40
+  reps: 12
+  time: 45
+  distance: 700
+  set_number: 4
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
   exercise_instance: two

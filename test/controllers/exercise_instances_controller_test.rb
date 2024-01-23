@@ -39,15 +39,10 @@ class ExerciseInstancesControllerTest < ActionDispatch::IntegrationTest
   test 'should create exercise_instance' do
     assert_difference('ExerciseInstance.count') do
       post exercise_log_exercise_instances_path(exercise_log_id: @exercise_log.id),
-           params: { exercise_instance: { distance: 200,
-                                          exercise_id: @exercise.id,
+           params: { exercise_instance: { exercise_id: @exercise.id,
                                           exercise_log_id: @exercise_log.id,
                                           is_pr: false,
-                                          reps: 2,
-                                          sets: 2,
-                                          start_time: Time.current,
-                                          time: 200,
-                                          weight: 30 } }
+                                          start_time: Time.current } }
     end
 
     assert_response :found
@@ -57,22 +52,13 @@ class ExerciseInstancesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update exercise_instance' do
     patch exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
-          params: { exercise_instance: { distance: 300,
-                                         exercise_id: @exercise.id,
+          params: { exercise_instance: { exercise_id: @exercise.id,
                                          exercise_log_id: @exercise_log.id,
                                          is_pr: true,
-                                         reps: 3,
-                                         sets: 3,
-                                         start_time: Time.current,
-                                         time: 300,
-                                         weight: 40 } }
+                                         start_time: Time.current } }
 
     assert_response :found
 
-    assert_equal 300, @exercise_instance.reload.distance
-    assert_equal 3, @exercise_instance.reload.reps
-    assert_equal 3, @exercise_instance.reload.sets
-    assert_equal 40, @exercise_instance.reload.weight
     assert_equal true, @exercise_instance.reload.is_pr
   end
 

@@ -3,11 +3,6 @@
 one:
   exercise_log: one
   exercise: one
-  weight: 50
-  reps: 10
-  time: 30
-  distance: 500
-  sets: 3
   is_pr: true
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
@@ -16,11 +11,6 @@ one:
 two:
   exercise_log: two
   exercise: two
-  weight: 40
-  reps: 12
-  time: 45
-  distance: 700
-  sets: 4
   is_pr: false
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>

@@ -2,16 +2,18 @@
 
 Rails.application.routes.draw do
   devise_for :users
-
+  
   # this is required to map sign out to a get request so the sign out button works
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
-
-  resources :exercise_instances
+  
   resources :exercise_logs, only: [:show] do
-    resources :exercise_instances
+    resources :exercise_instances do 
+      resources :set_instances
+    end
   end
+  
   resources :exercises
 
   get 'home/index'

@@ -1,5 +1,5 @@
 <section class="today-date-container">
-  <button class="left-arrow"><</button>
+  <button class="left-arrow">'<' </button>
   <strong class="date">TODAY, DATE</strong>
   <button class="right-arrow">></button>
 </section>
@@ -13,14 +13,20 @@
 </article>
 
 <section class="dynamic-card-container">
-  <div class="ex-card">ex 1</div>
-  <div class="ex-card">ex 2</div>
-  <div class="ex-card">ex 3</div>
+  <div class="ex-card">ex 1
+    <button>add set +</button>
+  </div>
+  <div class="ex-card">ex 2
+    <button>add set +</button>
+  </div>
+  <div class="ex-card">ex 3
+    <button>add set +</button>
+  </div>
   <button>+ Add exercise</button>
 </section>
 
 <div>
-  <%= link_to "Back to Calendar", exercise_log_exercise_instances_path(@exercise_log) %>
+  <%= link_to "Back to Calendar" , exercise_log_exercise_instances_path(@exercise_log) %>
 </div>
 
 <footer>

@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Dev Todo List
+### admin
+* add seed data again
 
-Things you may want to cover:
+### backend
+* fix permissions in test issues
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### frontend
+* create all html forms
+* create wireframes again
+* decide component lib

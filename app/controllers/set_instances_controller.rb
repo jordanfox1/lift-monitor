@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SetInstancesController < ApplicationController
   before_action :set_set_instance, only: %i[show edit update destroy]
 

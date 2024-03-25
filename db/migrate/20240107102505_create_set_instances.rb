@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSetInstances < ActiveRecord::Migration[7.1]
   def change
     create_table :set_instances do |t|

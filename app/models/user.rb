@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_one :exercise_log, dependent: :destroy
   has_many :exercises, dependent: :destroy
 
-  after_create :create_exercise_log, :create_default_exercises
+  after_commit :create_exercise_log, :create_default_exercises
 
   private
 

@@ -1,5 +1,5 @@
 class SetInstancesController < ApplicationController
-  before_action :set_set_instance, only: %i[ show edit update destroy ]
+  before_action :set_set_instance, only: %i[show edit update destroy]
 
   # GET /set_instances or /set_instances.json
   def index
@@ -7,8 +7,7 @@ class SetInstancesController < ApplicationController
   end
 
   # GET /set_instances/1 or /set_instances/1.json
-  def show
-  end
+  def show; end
 
   # GET /set_instances/new
   def new
@@ -16,8 +15,7 @@ class SetInstancesController < ApplicationController
   end
 
   # GET /set_instances/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /set_instances or /set_instances.json
   def create
@@ -25,7 +23,7 @@ class SetInstancesController < ApplicationController
 
     respond_to do |format|
       if @set_instance.save
-        format.html { redirect_to set_instance_url(@set_instance), notice: "Set instance was successfully created." }
+        format.html { redirect_to set_instance_url(@set_instance), notice: 'Set instance was successfully created.' }
         format.json { render :show, status: :created, location: @set_instance }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +36,7 @@ class SetInstancesController < ApplicationController
   def update
     respond_to do |format|
       if @set_instance.update(set_instance_params)
-        format.html { redirect_to set_instance_url(@set_instance), notice: "Set instance was successfully updated." }
+        format.html { redirect_to set_instance_url(@set_instance), notice: 'Set instance was successfully updated.' }
         format.json { render :show, status: :ok, location: @set_instance }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +50,20 @@ class SetInstancesController < ApplicationController
     @set_instance.destroy!
 
     respond_to do |format|
-      format.html { redirect_to set_instances_url, notice: "Set instance was successfully destroyed." }
+      format.html { redirect_to set_instances_url, notice: 'Set instance was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_set_instance
-      @set_instance = SetInstance.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def set_instance_params
-      params.fetch(:set_instance, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_set_instance
+    @set_instance = SetInstance.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def set_instance_params
+    params.fetch(:set_instance, {})
+  end
 end

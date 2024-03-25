@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_107_102_505) do
+ActiveRecord::Schema[7.1].define(version: 20_240_325_020_351) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -74,6 +74,11 @@ ActiveRecord::Schema[7.1].define(version: 20_240_107_102_505) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.datetime 'start_time'
+    t.integer 'weight'
+    t.integer 'reps'
+    t.decimal 'time'
+    t.decimal 'distance'
+    t.integer 'calories'
     t.index ['exercise_id'], name: 'index_exercise_instances_on_exercise_id'
     t.index ['exercise_log_id'], name: 'index_exercise_instances_on_exercise_log_id'
   end

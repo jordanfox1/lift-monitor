@@ -4,20 +4,8 @@ module DefaultExercises
   extend ActiveSupport::Concern
 
   def create_default_exercises
-    categories = [
-      'Chest',
-      'Legs',
-      'Arms',
-      'Back',
-      'Shoulders',
-      'Core',
-      'Total Body',
-      'Cardio',
-      'Yoga/Stretches',
-      'Other'
-    ]
 
-    categories.each do |name|
+    EXERCISE_CATEGORIES.each do |name|
       Category.find_or_create_by!(name: name)
     end
 

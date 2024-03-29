@@ -2,10 +2,8 @@
 
 ## Dev Todo List
 ### admin
-* add seed data again - finalize
 
 ### user
-* add default exercises etc
 
 ### backend
 * fix permissions in test issues

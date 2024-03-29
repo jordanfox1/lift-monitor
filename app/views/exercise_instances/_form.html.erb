@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag "form" %>
+
 <%= form_with(model: [@exercise_log, @exercise_instance], local: true) do |form| %>
   <% if exercise_instance.errors.any? %>
     <div style="color: red">

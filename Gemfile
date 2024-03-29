@@ -61,12 +61,14 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   gem 'letter_opener'
+  gem 'rubocop-rails', require: false
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'minitest-reporters'
 end
 
 gem 'devise', '~> 4.9'
@@ -75,9 +77,5 @@ gem 'simple_calendar', '~> 2.4'
 
 # Use Sass to process CSS
 gem 'sassc-rails'
-
-gem 'minitest-reporters'
-
-gem 'rubocop-rails', require: false
 
 gem 'factory_bot', '~> 6.4'

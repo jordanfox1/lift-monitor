@@ -17,4 +17,9 @@ class User < ApplicationRecord
   def create_exercise_log
     ExerciseLog.create(user: self)
   end
+
+  # Override Devise::Confirmable#after_confirmation
+  def after_confirmation
+    create_default_exercises
+  end
 end

@@ -11,6 +11,5 @@
 * fix up schema, make a decission about sets. simplify things
 
 ### frontend
-* create all html forms
-* create wireframes again
-* decide component lib
+* create timer
+* create for for date and switching between days

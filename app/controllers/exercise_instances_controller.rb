@@ -23,6 +23,10 @@ class ExerciseInstancesController < ApplicationController
   # GET /exercise_instances/new
   def new
     @exercise_instance = ExerciseInstance.new
+
+    @exercise_instances = @exercise_log.exercise_instances.all
+    current_date = params[:start_time] ? Date.parse(params[:start_time]) : Date.today
+    @filtered_exercises_for_date = @exercise_instances.where(start_time: current_date)
   end
 
   # GET /exercise_instances/1/edit

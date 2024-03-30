@@ -1,0 +1,17 @@
+<!-- <% current_date = params[:start_time] ? Date.parse(params[:start_time]) : Date.today %>
+
+<% if @exercise_instances %>
+  <h2>Exercises for <%= current_date %></h2>
+  <ul>
+    <% @exercise_instances.each do |exercise_instance| %>
+      <% if exercise_instance.start_time.to_date == current_date %>
+        <li>
+          <%= exercise_instance.name %> - 
+          <%= exercise_instance.start_time.strftime("%H:%M") %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+  <% else %>
+    <p>No exercise instances found.</p>
+<% end %> -->

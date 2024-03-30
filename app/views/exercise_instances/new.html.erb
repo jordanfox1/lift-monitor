@@ -1,35 +1,89 @@
-<!-- <header class="today-date-container">
-  <button class="left-arrow">< </button>
+<header class="today-date-container">
+  <%= link_to new_exercise_log_exercise_instance_path(start_time: (params[:start_time] ? (Date.parse(params[:start_time])) - 1 : Date.today - 1)), class: 'create-exercise-instance-link' do %>
+    <
+  <% end %>
   <strong class="date">TODAY, DATE</strong>
-  <button class="right-arrow">></button>
+  <%= link_to new_exercise_log_exercise_instance_path(start_time: (params[:start_time] ? (Date.parse(params[:start_time])) + 1 : Date.today + 1)), class: 'create-exercise-instance-link' do %>
+    >
+  <% end %>
 </header>
 
 <article class="timer-container">
-  <span></span>
+  <!-- <span></span> -->
   <button>-</button>
   <button>start/pause</button>
   <button>+</button>
-  <span></span>
+  <!-- <span></span> -->
 </article>
 
 <section class="dynamic-card-container">
-  <div class="ex-card">ex 1
-    <button>add set +</button>
-  </div>
-  <div class="ex-card">ex 2
-    <button>add set +</button>
-  </div>
-  <div class="ex-card">ex 3
-    <button>add set +</button>
-  </div>
-  <button>+ Add exercise</button>
+  <% current_date = params[:start_time] ? Date.parse(params[:start_time]) : Date.today %>
+
+  <% if @filtered_exercises_for_date.any? %>
+    <h2>Exercises for <%= current_date %></h2>
+    <section class="exercise_instance_card">
+      <% @filtered_exercises_for_date.each do |ei| %>
+        <div>
+          <strong> <%= ei.exercise.name %> </strong>
+          <% if ei.is_pr %>
+            <span>personal best!</span>
+          <% end %>
+
+          <% if ei.exercise.category.name == 'Chest' %>
+            <span>reps: <%= ei.reps %></span>
+            <span>weight: <%= ei.weight %>kg</span>
+          <% end %>
+          <% if ei.exercise.category.name == 'Legs' %>
+            <span>reps: <%= ei.reps %></span>
+            <span>weight: <%= ei.weight %>kg</span>
+          <% end %>
+          <% if ei.exercise.category.name == 'Arms' %>
+            <span>reps: <%= ei.reps %></span>
+            <span>weight: <%= ei.weight %>kg</span>
+          <% end %>
+          <% if ei.exercise.category.name == 'Back' %>
+            <span>reps: <%= ei.reps %></span>
+            <span>weight: <%= ei.weight %>kg</span>
+          <% end %>
+          <% if ei.exercise.category.name == 'Shoulders' %>
+            <span>reps: <%= ei.reps %></span>
+            <span>weight: <%= ei.weight %>kg</span>
+          <% end %>
+          <% if ei.exercise.category.name == 'Core' %>
+            <span>reps: <%= ei.reps %></span>
+            <span>weight: <%= ei.weight %>kg</span>
+          <% end %>
+          <% if ei.exercise.category.name == 'Total Body' %>
+            <span>reps: <%= ei.reps %></span>
+            <span>weight: <%= ei.weight %>kg</span>
+          <% end %>
+
+
+          <% if ei.exercise.category.name == 'Cardio' %>
+            <span>time: <%= ei.time%></span>
+            <span>distance: <%= ei.distance %></span>
+            <span>calories: <%= ei.calories %></span>
+          <% end %>
+
+          <% if ei.exercise.category.name == 'Yoga/Stretches' %>
+            <span>time: <%= ei.time%></span>
+            <span>distance: <%= ei.distance %></span>
+            <span>calories: <%= ei.calories %></span>
+          <% end %>
+
+        </div>
+      <% end %>
+    </section>
+  <% else %>
+    <p>No Exercises for .</p>
+  <% end %>
 </section>
 
 <div>
   <%= link_to "Back to Calendar" , exercise_log_exercise_instances_path(@exercise_log) %>
 </div>
 
-<footer>
+<footer class="footer">
   <nav>
     <ul>
       <li>1</li>
@@ -39,65 +93,4 @@
       <li>5</li>
     </ul>
   </nav>
-</footer> -->
-
-<% current_date = params[:start_time] ? Date.parse(params[:start_time]) : Date.today %>
-
-<% if @filtered_exercises_for_date.any? %>
-  <h2>Exercises for <%= current_date %></h2>
-  <section class="exercise_instance_card">
-    <% @filtered_exercises_for_date.each do |ei| %>
-      <div>
-        <strong> <%= ei.exercise.name %> </strong>
-        <% if ei.is_pr %>
-          <span>personal best!</span>
-        <% end %>
-
-        <% if ei.exercise.category.name == 'Chest' %>
-          <span>reps: <%= ei.reps %></span>
-          <span>weight: <%= ei.weight %>kg</span>
-        <% end %>
-        <% if ei.exercise.category.name == 'Legs' %>
-          <span>reps: <%= ei.reps %></span>
-          <span>weight: <%= ei.weight %>kg</span>
-        <% end %>
-        <% if ei.exercise.category.name == 'Arms' %>
-          <span>reps: <%= ei.reps %></span>
-          <span>weight: <%= ei.weight %>kg</span>
-        <% end %>
-        <% if ei.exercise.category.name == 'Back' %>
-          <span>reps: <%= ei.reps %></span>
-          <span>weight: <%= ei.weight %>kg</span>
-        <% end %>
-        <% if ei.exercise.category.name == 'Shoulders' %>
-          <span>reps: <%= ei.reps %></span>
-          <span>weight: <%= ei.weight %>kg</span>
-        <% end %>
-        <% if ei.exercise.category.name == 'Core' %>
-          <span>reps: <%= ei.reps %></span>
-          <span>weight: <%= ei.weight %>kg</span>
-        <% end %>
-        <% if ei.exercise.category.name == 'Total Body' %>
-          <span>reps: <%= ei.reps %></span>
-          <span>weight: <%= ei.weight %>kg</span>
-        <% end %>
-
-
-        <% if ei.exercise.category.name == 'Cardio' %>
-          <span>time: <%= ei.time%></span>
-          <span>distance: <%= ei.distance %></span>
-          <span>calories: <%= ei.calories %></span>
-        <% end %>
-
-        <% if ei.exercise.category.name == 'Yoga/Stretches' %>
-          <span>time: <%= ei.time%></span>
-          <span>distance: <%= ei.distance %></span>
-          <span>calories: <%= ei.calories %></span>
-        <% end %>
-
-      </div>
-    <% end %>
-  </section>
-<% else %>
-  <p>No exercise instances found for this date.</p>
-<% end %>
+</footer>

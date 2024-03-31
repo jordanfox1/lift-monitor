@@ -9,7 +9,7 @@
 </header>
 
 <article class="timer-container" data-controller="timer" data-target-time="60"> 
-  <button data-action="click->timer#decrementTimerBy20">-</button>
+  <button data-timer-target="decrementButton" data-action="click->timer#decrementTimerBy20">-</button>
   <button data-action="click->timer#startPause">start/pause</button>
   <span data-timer-target="display"></span>
   <button data-action="click->timer#incrementTimerBy20">+</button>

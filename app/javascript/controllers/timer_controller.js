@@ -1,15 +1,22 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["timer", "display"]
+  static targets = ["timer", "display", "decrementButton"]
+  
   connect() {
-    this.initTimer();
+    this.initTimer(this.element.dataset.targetTime);
   }
   
-  initTimer() {
-    this.targetTime = parseInt(this.element.dataset.targetTime);
+  initTimer(amountOfTime) {
+    if (this._intervalId) {
+      clearInterval(this._intervalId);
+    };
+    this.timerRunning = true;
+
+    this.targetTime = parseInt(amountOfTime);
     this.startTime = Date.now();
     this.updateTimer();
+    
     this._intervalId = setInterval(this.updateTimer.bind(this), 1000); // run update timer every second
   }
 
@@ -18,39 +25,48 @@ export default class extends Controller {
   }
 
   updateTimer() {
-    if (this.currentDisplayTime === 0) {
-      clearInterval(this._intervalId);
-      return;
-    }
+    this.disableDecrementButton(); // check whether to disable decrement btn
 
     this.elapsedTime = Math.floor((Date.now() - this.startTime) / 1000);
-    const remainingTime = Math.max(0, this.targetTime - this.elapsedTime);
-    this.currentDisplayTime = 60 - this.elapsedTime;
+    this.remainingTime = Math.max(0, this.targetTime - this.elapsedTime);
 
     // Update display element with formatted time (minutes:seconds)
-    this.displayTarget.textContent = `${Math.floor(remainingTime / 60)}:${remainingTime % 60}`;
+    this.displayTarget.textContent = `${Math.floor(this.remainingTime / 60)}:${this.remainingTime % 60}`;
   }
 
   incrementTimerBy20() {
-    this.targetTime = Math.max(0, this.targetTime + 20);
-    this.startTime = Date.now();
-    this.updateTimer();
+    this.initTimer(this.targetTime + 20);
   }
   
   decrementTimerBy20() {
-    this.targetTime = Math.max(0, this.targetTime - 20);
-    this.startTime = Date.now();
-    this.updateTimer();
-  }
-
-  startPause() {
-    if (this.startTime) {
-      clearInterval(this._intervalId);
-      this.startTime = null;
+    if (this.remainingTime <= 1) {
       return;
     }
 
-    this._intervalId = setInterval(this.updateTimer.bind(this), 1000);
-    this.startTime = Date.now() - this.elapsedTime * 1000;
+    if (this.remainingTime < 20) {
+      this.initTimer(this.targetTime - this.remainingTime);
+      return;
+    };
+
+    this.initTimer(this.targetTime - 20);
   }
+
+  startPause() {
+    if (this.timerRunning === true) {
+      this.timerRunning = false
+      clearInterval(this._intervalId);
+      return;
+    }
+
+    this.initTimer(this.remainingTime);
+  }
+
+  disableDecrementButton() {
+    if (this.remainingTime <= 1) {
+      this.decrementButtonTarget.disabled = true;
+      return;
+    }
+
+    this.decrementButtonTarget.disabled = false;
+  };
 }

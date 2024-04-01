@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_25_020351) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_01_022356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_25_020351) do
     t.decimal "time"
     t.decimal "distance"
     t.integer "calories"
+    t.integer "set_number"
+    t.text "notes"
     t.index ["exercise_id"], name: "index_exercise_instances_on_exercise_id"
     t.index ["exercise_log_id"], name: "index_exercise_instances_on_exercise_log_id"
   end

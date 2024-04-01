@@ -80,6 +80,10 @@ class ExerciseInstancesController < ApplicationController
     end
   end
 
+  def render_exercise_form
+    render turbo_stream: turbo_stream.replace("form", partial: "form")
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

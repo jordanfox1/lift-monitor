@@ -1,39 +1,13 @@
-<header class="today-date-container">
-  <%= link_to new_exercise_log_exercise_instance_path(start_time: (params[:start_time] ? (Date.parse(params[:start_time])) - 1 : Date.today - 1)), class: 'create-exercise-instance-link' do %>
-    <
-  <% end %>
-  <% current_date = params[:start_time] ? Date.parse(params[:start_time]) : Date.today %>
-
-  <% if current_date == Date.today %>
-    <strong>Today</strong>
-  <% else %>
-    <strong><%= current_date %></strong>
-  <% end %>
-
-  <%= link_to new_exercise_log_exercise_instance_path(start_time: (params[:start_time] ? (Date.parse(params[:start_time])) + 1 : Date.today + 1)), class: 'create-exercise-instance-link' do %>
-    >
-  <% end %>
-</header>
-
-<article class="timer-container" data-controller="timer" data-target-time="60"> 
-  <button data-timer-target="decrementButton" data-action="click->timer#decrementTimerBy20">-</button>
-  <button data-action="click->timer#startPause">start/pause</button>
-  <span data-timer-target="display"></span>
-  <button data-action="click->timer#incrementTimerBy20">+</button>
-</article>
-
-<button data-turbo-frame="form">edit</button>
-
-<turbo-frame id="sets">
-  <section class="sets-container">
-    <% if @filtered_exercises_for_date.any? %>
+<section class="sets-container">
+    <% if filtered_exercises_for_date.any? %>
       <% current_set_number = nil %>
-      <% @filtered_exercises_for_date.sort_by { |ei| ei.set_number }.each do |ei| %>
+      <% filtered_exercises_for_date.sort_by { |ei| ei.set_number }.each do |ei| %>
         <% if current_set_number != ei.set_number %>
           <% current_set_number = ei.set_number %>
           <h3>Set <%= current_set_number %></h3>
           <div class="exercise_set">
         <% end %>
+        <turbo-frame id="sets">
           <div>
             <strong><%= ei.exercise.name %></strong>
             <% if ei.is_pr %>
@@ -67,6 +41,7 @@
               <span>reps: <%= ei.reps %></span>
               <span>weight: <%= ei.weight %>kg</span>
             <% end %>
+            <% end %>
             <% if ei.exercise.category.name == 'Other' %>
               <span>reps: <%= ei.reps %></span>
               <span>weight: <%= ei.weight %>kg</span>
@@ -81,32 +56,10 @@
               <span>calories: <%= ei.calories %></span>
             <% end %>
           </div>
-        <% if current_set_number == ei.set_number %>
-          </div>
-        <% end %>
+        </turbo-frame>
       <% end %>
     <% else %>
       <p>No Exercises for .</p>
     <% end %>
+    </section>
   </section>
-</turbo-frame>
-
-<turbo-frame id="form">
-  <%= render partial: 'form' %>
-</turbo-frame>
-
-<div>
-  <%= link_to "Back to Calendar" , exercise_log_exercise_instances_path(@exercise_log) %>
-</div>
-
-<footer class="footer">
-  <nav>
-    <ul>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-    </ul>
-  </nav>
-</footer>

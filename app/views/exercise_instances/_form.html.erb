@@ -1,85 +1,87 @@
-<%= stylesheet_link_tag "form" %>
+<%= turbo_frame_tag "modal" do %> 
+  <%= stylesheet_link_tag "form" %>
 
-<%= form_with(model: [@exercise_log, @exercise_instance], local: true) do |form| %>
-  <% if @exercise_instance.errors.any? %>
-    <div style="color: red">
-      <h2>
-        <%= pluralize(exercise_instance.errors.count, "error" ) %> prohibited this exercise_instance from being saved:
-      </h2>
+  <%= form_with(model: [@exercise_log, @exercise_instance], local: true) do |form| %>
+    <% if @exercise_instance.errors.any? %>
+      <div style="color: red">
+        <h2>
+          <%= pluralize(exercise_instance.errors.count, "error" ) %> prohibited this exercise_instance from being saved:
+        </h2>
 
-      <ul>
-        <% exercise_instance.errors.each do |error| %>
-          <li>
-            <%= error.full_message %>
-          </li>
-          <% end %>
-      </ul>
-    </div>
-    <% end %>
-
-      <div class="controller-scope" data-controller="exercise-instance">
-        <div>
-          <%= form.label :exercise_id, style: "display: block" %>
-            <select name="exercise_instance[exercise_id]" id="exercise_instance_exercise_id"
-              data-exercise-instance-target="select" data-action="change->exercise-instance#hideOrShowElement">
-
-              <% Exercise.all.group_by(&:category).each do |category, exercises| %>
-              
-                <optgroup label="<%= category.name %>">
-                  <% exercises.each do |exercise| %>
-                    <option value="<%= exercise.id %>">
-                      <%= exercise.name %>
-                    </option>
-                    <% end %>
-                </optgroup>
-
-                <% end %>
-            </select>
-        </div>
-
-        <div data-exercise-instance-target="strengthFormInputs">
-          <div>
-            <label for="exercise_instance_weight" style="display: block">Weight</label>
-            <input type="number" name="exercise_instance[weight]" id="exercise_instance_weight">
-          </div>
-
-          <div>
-            <label for="exercise_instance_reps" style="display: block">Reps</label>
-            <input type="number" name="exercise_instance[reps]" id="exercise_instance_reps">
-          </div>
-
-          <div>
-            <label for="exercise_instance_set_number" style="display: block">Set Number</label>
-            <input type="number" name="exercise_instance[set_number]" id="exercise_instance_set_number">
-          </div>
-        </div>
-
-        <div data-exercise-instance-target="cardioFormInputs">
-          <div>
-            <label for="exercise_instance_time" style="display: block">Time</label>
-            <input type="number" name="exercise_instance[time]" id="exercise_instance_time">
-          </div>
-
-          <div>
-            <label for="exercise_instance_distance" style="display: block">Distance</label>
-            <input type="number" name="exercise_instance[distance]" id="exercise_instance_distance">
-          </div>
-
-          <div>
-            <label for="exercise_instance_set_number" style="display: block">Set Number</label>
-            <input type="number" name="exercise_instance[set_number]" id="exercise_instance_set_number">
-          </div>
-        </div>
-
-        <div>
-          <%= form.label :is_pr, style: "display: block" %>
-            <%= form.check_box :is_pr %>
-        </div>
-
-        <!-- Add a hidden field to capture the start_time parameter from the URL -->
-        <%= form.hidden_field :start_time, value: params[:start_time] if params[:start_time].present? %>
-          <div>
-            <%= form.submit %>
-          </div>
-          <% end %>
+        <ul>
+          <% exercise_instance.errors.each do |error| %>
+            <li>
+              <%= error.full_message %>
+            </li>
+            <% end %>
+        </ul>
       </div>
+      <% end %>
+
+        <div class="controller-scope" data-controller="exercise-instance">
+          <div>
+            <%= form.label :exercise_id, style: "display: block" %>
+              <select name="exercise_instance[exercise_id]" id="exercise_instance_exercise_id"
+                data-exercise-instance-target="select" data-action="change->exercise-instance#hideOrShowElement">
+
+                <% Exercise.all.group_by(&:category).each do |category, exercises| %>
+                
+                  <optgroup label="<%= category.name %>">
+                    <% exercises.each do |exercise| %>
+                      <option value="<%= exercise.id %>">
+                        <%= exercise.name %>
+                      </option>
+                      <% end %>
+                  </optgroup>
+
+                  <% end %>
+              </select>
+          </div>
+
+          <div data-exercise-instance-target="strengthFormInputs">
+            <div>
+              <label for="exercise_instance_weight" style="display: block">Weight</label>
+              <input type="number" name="exercise_instance[weight]" id="exercise_instance_weight">
+            </div>
+
+            <div>
+              <label for="exercise_instance_reps" style="display: block">Reps</label>
+              <input type="number" name="exercise_instance[reps]" id="exercise_instance_reps">
+            </div>
+
+            <div>
+              <label for="exercise_instance_set_number" style="display: block">Set Number</label>
+              <input type="number" name="exercise_instance[set_number]" id="exercise_instance_set_number">
+            </div>
+          </div>
+
+          <div data-exercise-instance-target="cardioFormInputs">
+            <div>
+              <label for="exercise_instance_time" style="display: block">Time</label>
+              <input type="number" name="exercise_instance[time]" id="exercise_instance_time">
+            </div>
+
+            <div>
+              <label for="exercise_instance_distance" style="display: block">Distance</label>
+              <input type="number" name="exercise_instance[distance]" id="exercise_instance_distance">
+            </div>
+
+            <div>
+              <label for="exercise_instance_set_number" style="display: block">Set Number</label>
+              <input type="number" name="exercise_instance[set_number]" id="exercise_instance_set_number">
+            </div>
+          </div>
+
+          <div>
+            <%= form.label :is_pr, style: "display: block" %>
+              <%= form.check_box :is_pr %>
+          </div>
+
+          <!-- Add a hidden field to capture the start_time parameter from the URL -->
+          <%= form.hidden_field :start_time, value: params[:start_time] if params[:start_time].present? %>
+            <div>
+              <%= form.submit %>
+            </div>
+      <% end %>
+    </div>
+<% end %>

@@ -22,6 +22,7 @@ class ExerciseInstancesController < ApplicationController
 
   # GET /exercise_instances/new
   def new
+    # debugger
     @exercise_instance = ExerciseInstance.new
 
     @exercise_instances = @exercise_log.exercise_instances.all
@@ -34,6 +35,7 @@ class ExerciseInstancesController < ApplicationController
 
   # POST /exercise_instances or /exercise_instances.json
   def create
+    debugger
     @exercise_instance = current_user.exercise_log.exercise_instances.new(exercise_instance_params)
 
     if params[:exercise_instance][:start_time].present? # Check the params for start time, and default to time.now
@@ -48,7 +50,7 @@ class ExerciseInstancesController < ApplicationController
           redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
                       notice: 'Exercise instance was successfully created.'
         end
-        format.json { render :show, status: :created, location: @exercise_instance }
+        format.json { render :new, status: :created, location: @exercise_instance }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @exercise_instance.errors, status: :unprocessable_entity }
@@ -93,7 +95,7 @@ class ExerciseInstancesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def exercise_instance_params
     params.require(:exercise_instance).permit(:exercise_log_id, :exercise_id, :weight, :reps, :time, :distance,
-                                              :sets, :is_pr, :start_time)
+                                              :is_pr, :start_time, :set_number, :notes,)
   end
 
   def set_exercise_log

@@ -8,7 +8,7 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log(this.categoryValue)
+    // console.log(this.categoryValue)
   }
 
   hideOrShowElement() {

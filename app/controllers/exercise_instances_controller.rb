@@ -45,10 +45,6 @@ class ExerciseInstancesController < ApplicationController
 
     respond_to do |format|
       if @exercise_instance.save
-        format.html do
-          redirect_to exercise_log_exercise_instance_path(@exercise_log, @exercise_instance),
-                      notice: 'Exercise instance was successfully created.'
-        end
         format.json { render :new, status: :created, location: @exercise_instance }
       else
         format.html { render :new, status: :unprocessable_entity }

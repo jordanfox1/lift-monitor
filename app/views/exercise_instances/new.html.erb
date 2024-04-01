@@ -2,7 +2,14 @@
   <%= link_to new_exercise_log_exercise_instance_path(start_time: (params[:start_time] ? (Date.parse(params[:start_time])) - 1 : Date.today - 1)), class: 'create-exercise-instance-link' do %>
     <
   <% end %>
-  <strong class="date">TODAY, DATE</strong>
+  <% current_date = params[:start_time] ? Date.parse(params[:start_time]) : Date.today %>
+
+  <% if current_date == Date.today %>
+    <strong>Today</strong>
+  <% else %>
+    <strong><%= current_date %></strong>
+  <% end %>
+
   <%= link_to new_exercise_log_exercise_instance_path(start_time: (params[:start_time] ? (Date.parse(params[:start_time])) + 1 : Date.today + 1)), class: 'create-exercise-instance-link' do %>
     >
   <% end %>
@@ -15,11 +22,9 @@
   <button data-action="click->timer#incrementTimerBy20">+</button>
 </article>
 
-<section class="dynamic-card-container">
-  <% current_date = params[:start_time] ? Date.parse(params[:start_time]) : Date.today %>
+<section class="sets-container">
 
   <% if @filtered_exercises_for_date.any? %>
-    <h2>Exercises for <%= current_date %></h2>
     <% current_set_number = nil %>
     <% @filtered_exercises_for_date.sort_by { |ei| ei.set_number }.each do |ei| %>
       <% if current_set_number != ei.set_number %>
@@ -36,25 +41,22 @@
           <% if ei.exercise.category.name == 'Chest' %>
             <span>reps: <%= ei.reps %></span>
             <span>weight: <%= ei.weight %>kg</span>
-          <% else %>
-            <% if ei.exercise.category.name == 'Legs' %>
-              <span>reps: <%= ei.reps %></span>
-              <span>weight: <%= ei.weight %>kg</span>
-            <% else %>
-              # ... similar logic for other categories ...
-            <% end %>
+          <% end %>
+
+          <% if ei.exercise.category.name == 'Legs' %>
+            <span>reps: <%= ei.reps %></span>
+            <span>weight: <%= ei.weight %>kg</span>
           <% end %>
   
           <% if ei.exercise.category.name == 'Cardio' %>
             <span>time: <%= ei.time %></span>
             <span>distance: <%= ei.distance %></span>
             <span>calories: <%= ei.calories %></span>
-          <% else %>
-            <% if ei.exercise.category.name == 'Yoga/Stretches' %>
-              <span>time: <%= ei.time %></span>
-              <span>distance: <%= ei.distance %></span>
-              <span>calories: <%= ei.calories %></span>
-            <% end %>
+          <% end %>
+
+          <% if ei.exercise.category.name == 'Yoga/Stretches' %>
+            <span>time: <%= ei.time %></span>
+            <span>calories: <%= ei.calories %></span>
           <% end %>
         </div>
       <% if current_set_number == ei.set_number %>
@@ -65,8 +67,9 @@
     <p>No Exercises for .</p>
   <% end %>
   </section>
-  
 </section>
+
+<%= render partial: 'form' %>
 
 <div>
   <%= link_to "Back to Calendar" , exercise_log_exercise_instances_path(@exercise_log) %>

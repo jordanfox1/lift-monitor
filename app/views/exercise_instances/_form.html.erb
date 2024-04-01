@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "form" %>
 
 <%= form_with(model: [@exercise_log, @exercise_instance], local: true) do |form| %>
-  <% if exercise_instance.errors.any? %>
+  <% if @exercise_instance.errors.any? %>
     <div style="color: red">
       <h2>
         <%= pluralize(exercise_instance.errors.count, "error" ) %> prohibited this exercise_instance from being saved:
@@ -49,8 +49,8 @@
           </div>
 
           <div>
-            <label for="exercise_instance_sets" style="display: block">Sets</label>
-            <input type="number" name="exercise_instance[sets]" id="exercise_instance_sets">
+            <label for="exercise_instance_set_number" style="display: block">Set Number</label>
+            <input type="number" name="exercise_instance[set_number]" id="exercise_instance_set_number">
           </div>
         </div>
 

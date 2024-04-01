@@ -1,17 +1,17 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["timer", "display", "decrementButton"]
+  static targets = ["timer", "display", "decrementButton"];
   
   connect() {
-    this.initTimer(this.element.dataset.targetTime);
+    this.timerState = "initial"
   }
   
   initTimer(amountOfTime) {
     if (this._intervalId) {
       clearInterval(this._intervalId);
     };
-    this.timerRunning = true;
+    this.timerState = "running";
 
     this.targetTime = parseInt(amountOfTime);
     this.startTime = Date.now();
@@ -52,10 +52,14 @@ export default class extends Controller {
   }
 
   startPause() {
-    if (this.timerRunning === true) {
-      this.timerRunning = false
+    if (this.timerState === "running") {
+      this.timerState = "paused"
       clearInterval(this._intervalId);
       return;
+    }
+
+    if (this.timerState === "initial") {
+      this.initTimer(this.element.dataset.targetTime);
     }
 
     this.initTimer(this.remainingTime);

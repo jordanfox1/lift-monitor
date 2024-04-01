@@ -3,15 +3,15 @@
 require 'test_helper'
 
 WINDOWS_HOST = `cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }'`.strip
-CHROMEDRIVER_URL = "http://#{WINDOWS_HOST}:8015/"
+CHROMEDRIVER_URL = "http://#{WINDOWS_HOST}:8015/".freeze
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
   driven_by :selenium_remote_chrome
 
   # Add options for the Chrome browser
-  chrome_options = Selenium::WebDriver::Chrome::Options.new
-  
+  Selenium::WebDriver::Chrome::Options.new
+
   Capybara.register_driver :selenium_remote_chrome do |app|
     options = Selenium::WebDriver::Chrome::Options.new
     options.add_argument('--start-maximized')
@@ -20,7 +20,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       app,
       browser: :remote,
       url: CHROMEDRIVER_URL,
-      options: options,
+      options: options
     )
   end
 

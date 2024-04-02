@@ -22,7 +22,6 @@ class ExerciseInstancesController < ApplicationController
 
   # GET /exercise_instances/new
   def new
-    # debugger
     @exercise_instance = ExerciseInstance.new
 
     @exercise_instances = @exercise_log.exercise_instances.all
@@ -80,8 +79,9 @@ class ExerciseInstancesController < ApplicationController
     end
   end
 
-  def render_exercise_form
-    render turbo_stream: turbo_stream.replace("form", partial: "form")
+  def form
+    @exercise_instance = ExerciseInstance.new
+
   end
 
   private

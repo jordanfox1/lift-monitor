@@ -1,6 +1,6 @@
 <header class="today-date-container">
   <%= link_to new_exercise_log_exercise_instance_path(start_time: (params[:start_time] ? (Date.parse(params[:start_time])) - 1 : Date.today - 1)), class: 'create-exercise-instance-link' do %>
-    <
+    <<
   <% end %>
   <% current_date = params[:start_time] ? Date.parse(params[:start_time]) : Date.today %>
 
@@ -11,7 +11,7 @@
   <% end %>
 
   <%= link_to new_exercise_log_exercise_instance_path(start_time: (params[:start_time] ? (Date.parse(params[:start_time])) + 1 : Date.today + 1)), class: 'create-exercise-instance-link' do %>
-    >
+    >>
   <% end %>
 </header>
 
@@ -19,7 +19,7 @@
   <button data-timer-target="decrementButton" data-action="click->timer#decrementTimerBy20">-</button>
   <button data-action="click->timer#startPause">start/pause</button>
   <span data-timer-target="display"></span>
-  <button data-action="click->timer#incrementTimerBy20">+</button>
+  <button data-timer-target="incrementButton" data-action="click->timer#incrementTimerBy20">+</button>
 </article>
 
 <button data-turbo-frame="form">edit</button>

@@ -70,7 +70,6 @@ export default class extends Controller {
 
   disableDecrementButton() {
     if (this.timerState !== "running") {
-      console.log(this.timerState)
       this.decrementButtonTarget.disabled = true;
       return;
     };
@@ -85,7 +84,6 @@ export default class extends Controller {
 
   disableIncrementButton() {
     if (this.timerState !== "running") {
-      console.log(this.timerState)
       this.incrementButtonTarget.disabled = true;
       return;
     };

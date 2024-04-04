@@ -22,7 +22,9 @@
   <button data-timer-target="incrementButton" data-action="click->timer#incrementTimerBy20">+</button>
 </article>
 
-<button data-turbo-frame="form">edit</button>
+<turbo-frame id="form">
+  <%= link_to "edit on form page", exercise_log_form_path(@exercise_log)%>
+</turbo-frame>
 
 <turbo-frame id="sets">
   <section class="sets-container">
@@ -91,9 +93,8 @@
   </section>
 </turbo-frame>
 
-<turbo-frame id="form">
-  <%= render partial: 'form' %>
-</turbo-frame>
+
+<%= render partial: 'form' %>
 
 <div>
   <%= link_to "Back to Calendar" , exercise_log_exercise_instances_path(@exercise_log) %>

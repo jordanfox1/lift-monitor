@@ -1,10 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["timer", "display", "decrementButton", "incrementButton"];
+  static targets = ["timer", "display", "decrementButton", "incrementButton","startPauseButton"];
 
   connect() {
     this.timerState = "initial"
+    this.updateTimerButtonText("Start");
     this.disableDecrementButton();
     this.disableIncrementButton();
   }
@@ -14,6 +15,7 @@ export default class extends Controller {
       clearInterval(this._intervalId);
     };
     this.timerState = "running";
+    this.updateTimerButtonText("Pause");
 
     this.targetTime = parseInt(amountOfTime);
     this.startTime = Date.now();
@@ -66,6 +68,7 @@ export default class extends Controller {
   startPause() {
     if (this.timerState === "running") {
       this.timerState = "paused"
+      this.updateTimerButtonText("Start");
       clearInterval(this._intervalId);
       return;
     }
@@ -98,5 +101,9 @@ export default class extends Controller {
     };
 
     this.incrementButtonTarget.disabled = false;
+  };
+
+  updateTimerButtonText(newText) {
+    this.startPauseButtonTarget.textContent = newText;
   };
 }

@@ -9,10 +9,14 @@ Rails.application.routes.draw do
   end
 
   resources :exercise_logs, only: [:show] do
+    get 'exercise_instances/form', to: 'exercise_instances#form', as: :form
     resources :exercise_instances do
+      # Add a nested route for the form
       resources :set_instances
     end
   end
+
+  get '/test', to: 'home#test', as: :test
 
   resources :exercises
 

@@ -1,12 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["timer", "display", "decrementButton"];
-  
+  static targets = ["timer", "display", "decrementButton", "incrementButton"];
+
   connect() {
     this.timerState = "initial"
+    this.disableDecrementButton();
+    this.disableIncrementButton();
   }
-  
+
   initTimer(amountOfTime) {
     if (this._intervalId) {
       clearInterval(this._intervalId);
@@ -16,16 +18,17 @@ export default class extends Controller {
     this.targetTime = parseInt(amountOfTime);
     this.startTime = Date.now();
     this.updateTimer();
-    
+
     this._intervalId = setInterval(this.updateTimer.bind(this), 1000); // run update timer every second
   }
 
   disconnect() {
-    clearInterval(this._intervalId); 
+    clearInterval(this._intervalId);
   }
 
   updateTimer() {
-    this.disableDecrementButton(); // check whether to disable decrement btn
+    this.disableDecrementButton();
+    this.disableIncrementButton();
 
     this.elapsedTime = Math.floor((Date.now() - this.startTime) / 1000);
     this.remainingTime = Math.max(0, this.targetTime - this.elapsedTime);
@@ -42,7 +45,7 @@ export default class extends Controller {
 
     this.initTimer(this.targetTime + 20);
   }
-  
+
   decrementTimerBy20() {
     if (this.timerState == "initial") {
       return;
@@ -75,11 +78,25 @@ export default class extends Controller {
   }
 
   disableDecrementButton() {
+    if (this.timerState !== "running") {
+      this.decrementButtonTarget.disabled = true;
+      return;
+    };
+
     if (this.remainingTime <= 1) {
       this.decrementButtonTarget.disabled = true;
       return;
-    }
+    };
 
     this.decrementButtonTarget.disabled = false;
+  };
+
+  disableIncrementButton() {
+    if (this.timerState !== "running") {
+      this.incrementButtonTarget.disabled = true;
+      return;
+    };
+
+    this.incrementButtonTarget.disabled = false;
   };
 }

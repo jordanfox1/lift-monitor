@@ -35,10 +35,19 @@ export default class extends Controller {
   }
 
   incrementTimerBy20() {
+    if (this.timerState == "initial") {
+      this.initTimer(20);
+      return
+    }
+
     this.initTimer(this.targetTime + 20);
   }
   
   decrementTimerBy20() {
+    if (this.timerState == "initial") {
+      return;
+    }
+
     if (this.remainingTime <= 1) {
       return;
     }
